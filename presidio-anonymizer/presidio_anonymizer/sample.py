@@ -3,9 +3,7 @@ from presidio_anonymizer.entities import RecognizerResult, OperatorConfig
 
 def sample_run_anonymizer(text: str, start: int, end: int):
     """
-    Testable function with the expected signature:
-    - No input() calls
-    - Returns the anonymizer result object
+    Clean testable function. No input() calls.
     """
     engine = AnonymizerEngine()
     result = engine.anonymize(
@@ -24,7 +22,7 @@ if __name__ == "__main__":
     print(f"text: {res.text}")
     print("items:")
     print("[")
-    for item in res.items:  # item is an OperatorResult object → use attributes
+    for item in res.items:
         print(
             f"    {{'start': {item.start}, 'end': {item.end}, "
             f"'entity_type': '{item.entity_type}', 'text': '{item.text}', "
