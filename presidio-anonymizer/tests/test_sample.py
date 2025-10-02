@@ -6,3 +6,4 @@ def test_sample_run_anonymizer():
     assert len(res.items) == 1             # length assert
     assert res.items[0].start == 11        # start assert
     assert res.items[0].end == 14          # end assert
+    pass
