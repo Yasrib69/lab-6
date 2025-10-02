@@ -10,6 +10,7 @@ def sample_run_anonymizer(text: str, start: int, end: int):
         ],
         operators={"PERSON": OperatorConfig("replace", {"new_value": "BIP"})},
     )
+    return result
 
 if __name__ == "__main__":
     r = sample_run_anonymizer("My name is Bond.", 11, 15)
