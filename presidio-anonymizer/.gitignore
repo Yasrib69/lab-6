@@ -1,0 +1,9 @@
+# test/coverage artifacts
+cov_html/
+.coverage
+.pytest_cache/
+# bytecode
+__pycache__/
+*.pyc
+# venvs (if any local)
+.venv/
