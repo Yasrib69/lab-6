@@ -283,6 +283,48 @@ def test_given_negative_start_or_endpoint_then_we_fail(start, end):
         match="Invalid input, result start and end must be positive",
     ):
         create_recognizer_result("entity", 0, start, end)
+        
+@pytest.mark.parametrize(
+    "a_start,a_end,b_start,b_end,expected",
+    [
+        
+        (0, 5, 6, 10, 0),
+       
+        (10, 15, 0, 9, 0),
+
+       
+        (0, 5, 5, 9, 0),
+        (5, 10, 0, 5, 0),
+
+        
+        (0, 7, 5, 10, 2),   # overlap [5,7) => size 2
+        (5, 12, 0, 8, 3),   # overlap [5,8) => size 3
+
+        
+        (3, 9, 3, 9, 6),
+
+       
+        (0, 10, 3, 7, 4),   # B inside A
+        (3, 7, 0, 10, 4),   # A inside B
+
+        
+        (10, 11, 10, 11, 1),
+        (10, 11, 9, 12, 1),
+
+       
+        (5, 5, 0, 10, 0),
+        (0, 10, 10, 10, 0),
+    ],
+)
+def test_intersects(a_start, a_end, b_start, b_end, expected):
+    a = create_recognizer_result(entity_type="PERSON", score=0.8, start=a_start, end=a_end)
+    b = create_recognizer_result(entity_type="PERSON", score=0.9, start=b_start, end=b_end)
+
+    # Correct intersection size
+    assert a.intersects(b) == expected
+    # Symmetry
+    assert b.intersects(a) == expected
+
 
 
 def create_recognizer_result(entity_type: str, score: float, start: int, end: int):
